@@ -128,6 +128,34 @@ public class DeliaRadicumModelTest {
                 assertEquals(Result.WARNING_STATUS_HIGH_RISK, result.getWarningStatus());   
             }
         }
+        
+        // Testing with hourly data (from different station)
+        config = this.getConfiguration("/weatherdata_both_1h.json");
+        instance.setConfiguration(config);
+        results = instance.getResult();
+        
+        cal.set(2014, Calendar.APRIL, 23, 0, 0, 0);
+        cal.set(Calendar.MILLISECOND, 0);
+        lastGreen = cal.getTime();
+        cal.set(2014, Calendar.APRIL,26,0,0,0);
+        lastYellow = cal.getTime();
+       
+        for(Result result:results)
+        {
+            System.out.println(result.getResultValidTime() + ": " + result.getWarningStatus());
+            if(result.getResultValidTime().compareTo(lastGreen) <= 0)
+            {
+                assertEquals(Result.WARNING_STATUS_NO_RISK, result.getWarningStatus());
+            }
+            else if(result.getResultValidTime().compareTo(lastYellow) <= 0)
+            {
+                assertEquals(Result.WARNING_STATUS_MINOR_RISK, result.getWarningStatus());
+            }
+            else
+            {
+                assertEquals(Result.WARNING_STATUS_HIGH_RISK, result.getWarningStatus());   
+            }
+        }
     }
 
     /**
