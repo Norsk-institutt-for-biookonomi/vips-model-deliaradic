@@ -142,7 +142,7 @@ public class DeliaRadicumModelTest {
        
         for(Result result:results)
         {
-            System.out.println(result.getResultValidTime() + ": " + result.getWarningStatus());
+            //System.out.println(result.getResultValidTime() + ": " + result.getWarningStatus());
             if(result.getResultValidTime().compareTo(lastGreen) <= 0)
             {
                 assertEquals(Result.WARNING_STATUS_NO_RISK, result.getWarningStatus());

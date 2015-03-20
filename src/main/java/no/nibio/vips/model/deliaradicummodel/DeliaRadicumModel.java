@@ -81,11 +81,11 @@ public class DeliaRadicumModel extends I18nImpl implements Model{
     @Override
     public List<Result> getResult() throws ModelExcecutionException {
         
-        this.calculateTemperatureSum(DeliaRadicumModelDataMatrix.TMD, DeliaRadicumModelDataMatrix.TMDD);
+        this.calculateTemperatureSum(DeliaRadicumModelDataMatrix.TMD, DeliaRadicumModelDataMatrix.TMDD4C);
         
         if(this.dataMatrix.getFirstDateWithParameterValue(DeliaRadicumModelDataMatrix.TJM10D) != null)
         {
-            this.calculateTemperatureSum(DeliaRadicumModelDataMatrix.TJM10D, DeliaRadicumModelDataMatrix.TJM10DD);
+            this.calculateTemperatureSum(DeliaRadicumModelDataMatrix.TJM10D, DeliaRadicumModelDataMatrix.TJM10DD4C);
         }
         
         List<Result> results = new ArrayList<>();
@@ -98,11 +98,10 @@ public class DeliaRadicumModel extends I18nImpl implements Model{
         {
             Result result = new ResultImpl();
             result.setResultValidTime(currentDate);
-            Double airTempSum = this.dataMatrix.getParamDoubleValueForDate(currentDate, DeliaRadicumModelDataMatrix.TMDD);
+            Double airTempSum = this.dataMatrix.getParamDoubleValueForDate(currentDate, DeliaRadicumModelDataMatrix.TMDD4C);
 
-            result.setValue(
-                    this.getModelId().toString(),
-                    DeliaRadicumModelDataMatrix.TMDD,
+            result.setValue(CommonNamespaces.NS_WEATHER,
+                    DeliaRadicumModelDataMatrix.TMDD4C,
                     dFormat.format(airTempSum)
             );
             
@@ -110,10 +109,9 @@ public class DeliaRadicumModel extends I18nImpl implements Model{
             
             if(this.dataMatrix.getFirstDateWithParameterValue(DeliaRadicumModelDataMatrix.TJM10D) != null)
             {
-                soilTempSum = this.dataMatrix.getParamDoubleValueForDate(currentDate, DeliaRadicumModelDataMatrix.TJM10DD);
-                result.setValue(
-                        this.getModelId().toString(),
-                        DeliaRadicumModelDataMatrix.TJM10DD,
+                soilTempSum = this.dataMatrix.getParamDoubleValueForDate(currentDate, DeliaRadicumModelDataMatrix.TJM10DD4C);
+                result.setValue(CommonNamespaces.NS_WEATHER,
+                        DeliaRadicumModelDataMatrix.TJM10DD4C,
                         dFormat.format(soilTempSum)
                 );
             }
@@ -133,6 +131,14 @@ public class DeliaRadicumModel extends I18nImpl implements Model{
                     TJM10Obs != null ? dFormat.format(TJM10Obs.getValue()) : null
             );
             
+            // Setting threshold values
+            result.setValue(this.getModelId().toString(), "TMDD4CLT", this.airTempSumLowerThreshold.toString());
+            result.setValue(this.getModelId().toString(), "TMDD4CUT", this.airTempSumUpperThreshold.toString());
+            if(this.dataMatrix.getFirstDateWithParameterValue(DeliaRadicumModelDataMatrix.TJM10D) != null)
+            {
+                result.setValue(this.getModelId().toString(), "TJM10DD4CLT", this.soilTempSumLowerThreshold.toString());
+                result.setValue(this.getModelId().toString(), "TJM10DD4CUT", this.soilTempSumUpperThreshold.toString());
+            }
             // Determining warning status
             Integer warningStatus = Result.WARNING_STATUS_NO_RISK;
             if( (   soilTempSum != null && soilTempSum >= this.soilTempSumLowerThreshold) 

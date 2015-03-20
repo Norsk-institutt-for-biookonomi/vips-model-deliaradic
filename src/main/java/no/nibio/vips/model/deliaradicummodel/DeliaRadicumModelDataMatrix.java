@@ -27,8 +27,8 @@ import no.bioforsk.vips.util.DateMap;
  */
 public class DeliaRadicumModelDataMatrix extends DateMap{
     // Aggregated values
-    public final static String TMDD = "TMDD";
-    public final static String TJM10DD = "TJM10DD";
+    public final static String TMDD4C = "TMDD4C";
+    public final static String TJM10DD4C = "TJM10DD4C";
     // Weather data stored for convenience (putting into result object)
     public final static String TMD = "TMD";
     public final static String TJM10D = "TJM10D";
