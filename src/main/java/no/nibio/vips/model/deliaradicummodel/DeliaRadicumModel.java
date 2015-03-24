@@ -356,7 +356,8 @@ public class DeliaRadicumModel extends I18nImpl implements Model{
      * @param inputParameterName the parameter to sum
      * @param outputParameterName the result
      */
-    private void calculateTemperatureSum(String inputParameterName, String outputParameterName) {
+    private void calculateTemperatureSum(String inputParameterName, String outputParameterName) throws ModelExcecutionException {
+        //System.out.println("input=" + inputParameterName + ", ouput=" +outputParameterName);
         Date today = this.dataMatrix.getFirstDateWithParameterValue(inputParameterName);
         Date lastDate = this.dataMatrix.getLastDateWithValues();
         Calendar cal = Calendar.getInstance(this.timeZone);
@@ -365,6 +366,11 @@ public class DeliaRadicumModel extends I18nImpl implements Model{
         while(today.compareTo(lastDate) < 0)
         {
             WeatherObservation todayTemp = (WeatherObservation)this.dataMatrix.getParamValueForDate(today, inputParameterName);
+            if(todayTemp == null)
+            {
+                throw new ModelExcecutionException("Missing weather data at " + today + ": " + inputParameterName);
+            }
+            //System.out.println("today=" + today + ",todayTemp=" + todayTemp);
             sum += Math.max(0.0, todayTemp.getValue() - this.dayDegreeBaseTemp);
             this.dataMatrix.setParamDoubleValueForDate(today, outputParameterName, sum);
             cal.setTime(today);

@@ -157,6 +157,37 @@ public class DeliaRadicumModelTest {
             }
         }
     }
+    
+    @Test
+    public void testWithSwedishData() throws Exception{
+        DeliaRadicumModel instance = new DeliaRadicumModel();
+        ModelConfiguration config = this.getConfiguration("/weatherdata_fjalkinge_sweden.json");
+        instance.setConfiguration(config);
+        List<Result> results = instance.getResult();
+        Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("Europe/Oslo"));
+        cal.set(2015, Calendar.MAY, 15, 0, 0, 0);
+        cal.set(Calendar.MILLISECOND, 0);
+        Date lastGreen = cal.getTime();
+        cal.set(2015, Calendar.MAY,18,0,0,0);
+        Date lastYellow = cal.getTime();
+       
+        for(Result result:results)
+        {
+            System.out.println(result.getResultValidTime() + ": " + result.getWarningStatus());
+            if(result.getResultValidTime().compareTo(lastGreen) <= 0)
+            {
+                assertEquals(Result.WARNING_STATUS_NO_RISK, result.getWarningStatus());
+            }
+            else if(result.getResultValidTime().compareTo(lastYellow) <= 0)
+            {
+                assertEquals(Result.WARNING_STATUS_MINOR_RISK, result.getWarningStatus());
+            }
+            else
+            {
+                assertEquals(Result.WARNING_STATUS_HIGH_RISK, result.getWarningStatus());   
+            }
+        }
+    }
 
     /**
      * Test of getModelId method, of class DeliaRadicumModel.
