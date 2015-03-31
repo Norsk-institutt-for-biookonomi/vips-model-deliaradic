@@ -92,7 +92,7 @@ public class DeliaRadicumModel extends I18nImpl implements Model{
         Date currentDate = this.dataMatrix.getFirstDateWithValues();
         Date lastDate = this.dataMatrix.getLastDateWithValues();
         Calendar cal = Calendar.getInstance(this.timeZone);
-        
+        //System.out.println(this.dataMatrix.toString());
         DecimalFormat dFormat = new DecimalFormat("###.##");
         while(currentDate.compareTo(lastDate) < 0)
         {
@@ -110,10 +110,13 @@ public class DeliaRadicumModel extends I18nImpl implements Model{
             if(this.dataMatrix.getFirstDateWithParameterValue(DeliaRadicumModelDataMatrix.TJM10D) != null)
             {
                 soilTempSum = this.dataMatrix.getParamDoubleValueForDate(currentDate, DeliaRadicumModelDataMatrix.TJM10DD4C);
-                result.setValue(CommonNamespaces.NS_WEATHER,
-                        DeliaRadicumModelDataMatrix.TJM10DD4C,
-                        dFormat.format(soilTempSum)
-                );
+                if(soilTempSum != null)
+                {
+                    result.setValue(CommonNamespaces.NS_WEATHER,
+                            DeliaRadicumModelDataMatrix.TJM10DD4C,
+                            dFormat.format(soilTempSum)
+                    );
+                }
             }
             
             
@@ -278,6 +281,7 @@ public class DeliaRadicumModel extends I18nImpl implements Model{
         
         // Setting timezone
         this.timeZone = TimeZone.getTimeZone((String) config.getConfigParameter("timeZone"));
+        //System.out.println("TimeZone=" + this.timeZone);
         
         // Importing weather data, creating collections
         // Can accept both hourly and daily data
@@ -357,9 +361,8 @@ public class DeliaRadicumModel extends I18nImpl implements Model{
      * @param outputParameterName the result
      */
     private void calculateTemperatureSum(String inputParameterName, String outputParameterName) throws ModelExcecutionException {
-        //System.out.println("input=" + inputParameterName + ", ouput=" +outputParameterName);
         Date today = this.dataMatrix.getFirstDateWithParameterValue(inputParameterName);
-        Date lastDate = this.dataMatrix.getLastDateWithValues();
+        Date lastDate = this.dataMatrix.getLastDateWithParameterValue(inputParameterName);
         Calendar cal = Calendar.getInstance(this.timeZone);
         
         Double sum = 0.0;

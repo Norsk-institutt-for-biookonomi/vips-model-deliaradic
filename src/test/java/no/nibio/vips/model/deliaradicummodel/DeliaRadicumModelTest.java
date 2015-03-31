@@ -101,7 +101,7 @@ public class DeliaRadicumModelTest {
                 assertEquals(Result.WARNING_STATUS_HIGH_RISK, result.getWarningStatus());   
             }
         }
-        // Testing withour TJM10
+        // Testing without TJM10
         config = this.getConfiguration("/weatherdata_air.json");
         instance.setConfiguration(config);
         results = instance.getResult();
@@ -156,15 +156,20 @@ public class DeliaRadicumModelTest {
                 assertEquals(Result.WARNING_STATUS_HIGH_RISK, result.getWarningStatus());   
             }
         }
+        
+        // Testing with data in DST transition
+        /**/
     }
     
     @Test
     public void testWithSwedishData() throws Exception{
+        System.out.println("testWithSwedishData");
         DeliaRadicumModel instance = new DeliaRadicumModel();
         ModelConfiguration config = this.getConfiguration("/weatherdata_fjalkinge_sweden.json");
+        config.setConfigParameter("timeZone", "Europe/Stockholm");
         instance.setConfiguration(config);
         List<Result> results = instance.getResult();
-        Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("Europe/Oslo"));
+        Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("Europe/Stockholm"));
         cal.set(2015, Calendar.MAY, 15, 0, 0, 0);
         cal.set(Calendar.MILLISECOND, 0);
         Date lastGreen = cal.getTime();
@@ -173,7 +178,37 @@ public class DeliaRadicumModelTest {
        
         for(Result result:results)
         {
-            System.out.println(result.getResultValidTime() + ": " + result.getWarningStatus());
+            //System.out.println(result.getResultValidTime() + ": " + result.getWarningStatus());
+            if(result.getResultValidTime().compareTo(lastGreen) <= 0)
+            {
+                assertEquals(Result.WARNING_STATUS_NO_RISK, result.getWarningStatus());
+            }
+            else if(result.getResultValidTime().compareTo(lastYellow) <= 0)
+            {
+                assertEquals(Result.WARNING_STATUS_MINOR_RISK, result.getWarningStatus());
+            }
+            else
+            {
+                assertEquals(Result.WARNING_STATUS_HIGH_RISK, result.getWarningStatus());   
+            }
+        }
+        
+        // Testing with DST transition data
+        System.out.println("testDSTSwedishdata");
+        config = this.getConfiguration("/alnarp_dst_transition.json");
+        config.setConfigParameter("timeZone", "Europe/Stockholm");
+        instance.setConfiguration(config);
+        results = instance.getResult();
+        
+        cal.set(2015, Calendar.MAY, 15, 0, 0, 0);
+        cal.set(Calendar.MILLISECOND, 0);
+        lastGreen = cal.getTime();
+        cal.set(2015, Calendar.MAY,18,0,0,0);
+        lastYellow = cal.getTime();
+       
+        for(Result result:results)
+        {
+            //System.out.println(result.getResultValidTime() + ": " + result.getWarningStatus());
             if(result.getResultValidTime().compareTo(lastGreen) <= 0)
             {
                 assertEquals(Result.WARNING_STATUS_NO_RISK, result.getWarningStatus());
