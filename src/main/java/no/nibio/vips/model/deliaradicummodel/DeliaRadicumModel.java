@@ -366,7 +366,7 @@ public class DeliaRadicumModel extends I18nImpl implements Model{
         Calendar cal = Calendar.getInstance(this.timeZone);
         
         Double sum = 0.0;
-        while(today.compareTo(lastDate) < 0)
+        while(today.compareTo(lastDate) <= 0)
         {
             WeatherObservation todayTemp = (WeatherObservation)this.dataMatrix.getParamValueForDate(today, inputParameterName);
             if(todayTemp == null)
