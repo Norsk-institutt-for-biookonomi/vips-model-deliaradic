@@ -94,7 +94,7 @@ public class DeliaRadicumModel extends I18nImpl implements Model{
         Calendar cal = Calendar.getInstance(this.timeZone);
         //System.out.println(this.dataMatrix.toString());
         DecimalFormat dFormat = new DecimalFormat("###.##");
-        while(currentDate.compareTo(lastDate) < 0)
+        while(currentDate.compareTo(lastDate) <= 0)
         {
             Result result = new ResultImpl();
             result.setResultValidTime(currentDate);
