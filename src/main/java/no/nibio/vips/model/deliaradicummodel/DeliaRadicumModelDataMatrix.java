@@ -19,7 +19,7 @@
 
 package no.nibio.vips.model.deliaradicummodel;
 
-import no.bioforsk.vips.util.DateMap;
+import no.nibio.vips.util.DateMap;
 
 /**
  * @copyright 2015 <a href="http://www.nibio.no/">NIBIO</a>

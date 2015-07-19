@@ -27,20 +27,20 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
-import no.bioforsk.vips.entity.ModelConfiguration;
-import no.bioforsk.vips.entity.Result;
-import no.bioforsk.vips.entity.ResultImpl;
-import no.bioforsk.vips.entity.WeatherObservation;
-import no.bioforsk.vips.i18n.I18nImpl;
-import no.bioforsk.vips.model.ConfigValidationException;
-import no.bioforsk.vips.model.Model;
-import no.bioforsk.vips.model.ModelExcecutionException;
-import no.bioforsk.vips.model.ModelId;
-import no.bioforsk.vips.util.CommonNamespaces;
-import no.bioforsk.vips.util.InvalidAggregationTypeException;
-import no.bioforsk.vips.util.WeatherElements;
-import no.bioforsk.vips.util.WeatherObservationListException;
-import no.bioforsk.vips.util.WeatherUtil;
+import no.nibio.vips.entity.ModelConfiguration;
+import no.nibio.vips.entity.Result;
+import no.nibio.vips.entity.ResultImpl;
+import no.nibio.vips.entity.WeatherObservation;
+import no.nibio.vips.i18n.I18nImpl;
+import no.nibio.vips.model.ConfigValidationException;
+import no.nibio.vips.model.Model;
+import no.nibio.vips.model.ModelExcecutionException;
+import no.nibio.vips.model.ModelId;
+import no.nibio.vips.util.CommonNamespaces;
+import no.nibio.vips.util.InvalidAggregationTypeException;
+import no.nibio.vips.util.WeatherElements;
+import no.nibio.vips.util.WeatherObservationListException;
+import no.nibio.vips.util.WeatherUtil;
 
 /**
  * Model controller for aggregated temperature model for invasion of
