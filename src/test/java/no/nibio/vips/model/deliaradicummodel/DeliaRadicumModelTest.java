@@ -88,11 +88,11 @@ public class DeliaRadicumModelTest {
         for(Result result:results)
         {
             //System.out.println(result.getResultValidTime() + ": " + result.getWarningStatus());
-            if(result.getResultValidTime().compareTo(lastGreen) <= 0)
+            if(result.getValidTimeStart().compareTo(lastGreen) <= 0)
             {
                 assertEquals(Result.WARNING_STATUS_NO_RISK, result.getWarningStatus());
             }
-            else if(result.getResultValidTime().compareTo(lastYellow) <= 0)
+            else if(result.getValidTimeStart().compareTo(lastYellow) <= 0)
             {
                 assertEquals(Result.WARNING_STATUS_MINOR_RISK, result.getWarningStatus());
             }
@@ -115,11 +115,11 @@ public class DeliaRadicumModelTest {
         for(Result result:results)
         {
             //System.out.println(result.getResultValidTime() + ": " + result.getWarningStatus());
-            if(result.getResultValidTime().compareTo(lastGreen) <= 0)
+            if(result.getValidTimeStart().compareTo(lastGreen) <= 0)
             {
                 assertEquals(Result.WARNING_STATUS_NO_RISK, result.getWarningStatus());
             }
-            else if(result.getResultValidTime().compareTo(lastYellow) <= 0)
+            else if(result.getValidTimeStart().compareTo(lastYellow) <= 0)
             {
                 assertEquals(Result.WARNING_STATUS_MINOR_RISK, result.getWarningStatus());
             }
@@ -143,11 +143,11 @@ public class DeliaRadicumModelTest {
         for(Result result:results)
         {
             //System.out.println(result.getResultValidTime() + ": " + result.getWarningStatus());
-            if(result.getResultValidTime().compareTo(lastGreen) <= 0)
+            if(result.getValidTimeStart().compareTo(lastGreen) <= 0)
             {
                 assertEquals(Result.WARNING_STATUS_NO_RISK, result.getWarningStatus());
             }
-            else if(result.getResultValidTime().compareTo(lastYellow) <= 0)
+            else if(result.getValidTimeStart().compareTo(lastYellow) <= 0)
             {
                 assertEquals(Result.WARNING_STATUS_MINOR_RISK, result.getWarningStatus());
             }
@@ -179,11 +179,11 @@ public class DeliaRadicumModelTest {
         for(Result result:results)
         {
             //System.out.println(result.getResultValidTime() + ": " + result.getWarningStatus());
-            if(result.getResultValidTime().compareTo(lastGreen) <= 0)
+            if(result.getValidTimeStart().compareTo(lastGreen) <= 0)
             {
                 assertEquals(Result.WARNING_STATUS_NO_RISK, result.getWarningStatus());
             }
-            else if(result.getResultValidTime().compareTo(lastYellow) <= 0)
+            else if(result.getValidTimeStart().compareTo(lastYellow) <= 0)
             {
                 assertEquals(Result.WARNING_STATUS_MINOR_RISK, result.getWarningStatus());
             }
@@ -209,11 +209,11 @@ public class DeliaRadicumModelTest {
         for(Result result:results)
         {
             //System.out.println(result.getResultValidTime() + ": " + result.getWarningStatus());
-            if(result.getResultValidTime().compareTo(lastGreen) <= 0)
+            if(result.getValidTimeStart().compareTo(lastGreen) <= 0)
             {
                 assertEquals(Result.WARNING_STATUS_NO_RISK, result.getWarningStatus());
             }
-            else if(result.getResultValidTime().compareTo(lastYellow) <= 0)
+            else if(result.getValidTimeStart().compareTo(lastYellow) <= 0)
             {
                 assertEquals(Result.WARNING_STATUS_MINOR_RISK, result.getWarningStatus());
             }
