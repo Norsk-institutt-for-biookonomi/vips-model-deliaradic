@@ -21,6 +21,7 @@ package no.nibio.vips.model.deliaradicummodel;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -38,6 +39,7 @@ import no.nibio.vips.model.ModelExcecutionException;
 import no.nibio.vips.model.ModelId;
 import no.nibio.vips.util.CommonNamespaces;
 import no.nibio.vips.util.InvalidAggregationTypeException;
+import no.nibio.vips.util.ModelUtil;
 import no.nibio.vips.util.WeatherElements;
 import no.nibio.vips.util.WeatherObservationListException;
 import no.nibio.vips.util.WeatherUtil;
@@ -72,10 +74,13 @@ public class DeliaRadicumModel extends I18nImpl implements Model{
     private List<WeatherObservation> TJM10; // Soil temperature at 10cm
     private DeliaRadicumModelDataMatrix dataMatrix;
     
+    private ModelUtil modelUtil;
+    
     public DeliaRadicumModel()
     {
         // Setting the file name of the resource bundle
         super("no.nibio.vips.model.deliaradicummodel.texts");
+        this.modelUtil = new ModelUtil();
     }
 
     @Override
@@ -214,7 +219,14 @@ public class DeliaRadicumModel extends I18nImpl implements Model{
 
     @Override
     public String getModelDescription(String language) {
-        return this.getText("description", language);
+        try
+        {
+            return this.modelUtil.getTextWithBase64EncodedImages(this.getText("description", language), this.getClass());
+        }
+        catch(IOException ex)
+        {
+            return this.getText("description", language);
+        }
     }
 
     @Override
