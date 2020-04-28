@@ -19,8 +19,6 @@
 
 package no.nibio.vips.model.deliaradicummodel;
 
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -288,9 +286,7 @@ public class DeliaRadicumModel extends I18nImpl implements Model{
         this.TJM10 = new ArrayList<>();
         // Init data matrix
         this.dataMatrix = new DeliaRadicumModelDataMatrix();
-        
-        ObjectMapper mapper = new ObjectMapper();
-        
+                
         // Setting timezone
         this.timeZone = TimeZone.getTimeZone((String) config.getConfigParameter("timeZone"));
         //System.out.println("TimeZone=" + this.timeZone);
@@ -298,7 +294,7 @@ public class DeliaRadicumModel extends I18nImpl implements Model{
         // Importing weather data, creating collections
         // Can accept both hourly and daily data
         WeatherUtil wUtil = new WeatherUtil();
-        List<WeatherObservation> observations = mapper.convertValue(config.getConfigParameter("observations"), new TypeReference<List<WeatherObservation>>(){});
+        List<WeatherObservation> observations = this.modelUtil.extractWeatherObservationList(config.getConfigParameter("observations"));
         for(WeatherObservation o:observations)
         {
             switch(o.getElementMeasurementTypeId())
