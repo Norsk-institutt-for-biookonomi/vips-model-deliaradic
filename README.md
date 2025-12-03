@@ -1,4 +1,5 @@
 # DeliaRadicumModel
+&copy; [NIBIO](https://nibio.no/en)
 
 <img src="src/main/resources/images/ef-20050805-120428.jpg" title="Foto: E. Fløistad"/>
 
@@ -38,7 +39,7 @@
 <h3>Links for more information</h3>
 <p>Norwegian only: <a href="https://www.plantevernleksikonet.no/l/oppslag/1483/" target="new">https://www.plantevernleksikonet.no/l/oppslag/1483/</a></p>
 
-### Development
+## Development
 
 Clone Gitlab repository
 
@@ -46,3 +47,11 @@ Clone Gitlab repository
 $ git clone https://gitlab.nibio.no/VIPS/models/java/Model_DELIARADIC.git
 $ cd Model_DELIARADIC
 ```
+
+### Compile, run tests
+```bash
+mvn clean install
+```
+
+### Deploy to VIPSCore
+See [the VIPSCore README](https://gitlab.nibio.no/VIPS/VIPSCore)
